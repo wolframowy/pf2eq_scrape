@@ -12,19 +12,23 @@ CSV data structure:
 
 This tool uses trademarks and/or copyrights owned by Paizo Inc., used under Paizo's Community Use Policy ([paizo.com/communityuse](https://paizo.com/community/communityuse)). We are expressly prohibited from charging you to use or access this content. This tool is not published, endorsed, or specifically approved by Paizo. For more information about Paizo Inc. and Paizo products, visit paizo.com.
 
-<!--
 ## Installing / Getting started
 
-A quick introduction of the minimal setup you need to get a hello world up &
-running.
+To use this script you need `python-3.x`. Then you need to install
+requirements from req.txt and you are good to go.
 
 ```shell
-packagemanager install awesome-project
-awesome-project start
-awesome-project "Do something!"  # prints "Nah."
+pip install req.txt
+py pf2eq_scrape.py
 ```
 
-Here you should say what actually happens when you execute the code above.
+Scraped items will be saved into the `input.csv` file located in the script folder.
+
+## Licensing
+
+The code in this project is licensed under GNU GENERAL PUBLIC LICENSE license.
+
+<!--
 
 ### Initial Configuration
 
@@ -131,12 +135,4 @@ links to humans using your project. You can include links like:
   - Your other project: https://github.com/your/other-project/
   - Someone else's project: https://github.com/someones/awesome-project/
 
-
-## Licensing
-
-One really important part: Give your project a proper license. Here you should
-state what the license is and how to find the text version of the license.
-Something like:
-
-"The code in this project is licensed under MIT license."
 -->
