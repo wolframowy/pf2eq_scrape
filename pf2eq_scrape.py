@@ -21,7 +21,7 @@ def convert_to_gp(price: str) -> float:
 with open('items.csv', 'w', newline='') as f:
     writer = csv.writer(f)
     writer.writerow(['ID', 'Title', 'Lvl', 'Price', 'Traits', 'URL'])
-    curr_id = 1
+    curr_id = 26
     url = BASE_URL + ITEM_ATTR + str(curr_id)
     page = requests.get(url)
     while page.status_code == 200:
@@ -38,7 +38,7 @@ with open('items.csv', 'w', newline='') as f:
         else:
             title = str(title_bars[0].contents[-2].string)
             lvl = str(title_bars[0].contents[-1].string).split()[-1]
-            writer.writerow([curr_id, title, lvl, prices[0], traits, url])
+            writer.writerow([curr_id, title, lvl, prices[0] if prices else 0, traits, url])
         if curr_id % 10 == 0:
             print(f'Scraped {curr_id} items')
         curr_id += 1
