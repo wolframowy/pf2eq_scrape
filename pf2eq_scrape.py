@@ -44,10 +44,11 @@ with open('items.csv', 'w', newline='') as f:
         prices = [convert_to_gp(str(x.nextSibling)) for x in item.find_all_next('b', string='Price')]
         if lvl[-1] == '+':
             title_bars = item.find_all('h2', class_='title')
+            sup_rarity = search_for_subitem_rarity(title_bar)
             for i in range(len(title_bars)):
                 title = str(title_bars[i].contents[-2].string)
                 lvl = str(title_bars[i].contents[-1].string).split()[-1]
-                rarity = search_for_subitem_rarity(title_bars[i])
+                rarity = search_for_subitem_rarity(title_bars[i]) if sup_rarity == 'Common' else sup_rarity
                 writer.writerow([curr_id, title, lvl, rarity, prices[i], traits, url])
         else:
             title = str(title_bar.contents[-2].string)
