@@ -30,7 +30,7 @@ def search_for_subitem_rarity(title_tag) -> str:
 
 
 with open('items.csv', 'w', newline='') as f:
-    writer = csv.writer(f)
+    writer = csv.writer(f, delimiter=';')
     writer.writerow(['ID', 'Title', 'Lvl', 'Rarity', 'Price', 'Traits', 'URL'])
     curr_id = 1
     url = BASE_URL + ITEM_ATTR + str(curr_id)
