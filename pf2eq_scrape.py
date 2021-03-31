@@ -36,7 +36,7 @@ def search_for_subitem_rarity(title_tag) -> str:
 
 def scrape_equipment(soup: BeautifulSoup, curr_id: int):
     item = soup.find(id='ctl00_MainContent_DetailedOutput')
-    traits = [str(x.string) for x in item.find_all(class_='trait')]
+    traits = {str(x.string) for x in item.find_all(class_='trait')}
     title_bar = item.find('h1', class_='title')
     lvl = str(title_bar.contents[-1].string).split()[-1]
     prices = [convert_to_gp(str(x.nextSibling)) for x in item.find_all_next('b', string='Price')]
