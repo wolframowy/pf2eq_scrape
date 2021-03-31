@@ -5,9 +5,9 @@ Script to scrape pathfinder 2nd edition items from https://2e.aonprd.com/ and sa
 
 CSV data structure:
 
-|              ID           |   Title   |    Level   |   Rarity    |      Price       |   Traits    |      Link       |
-|:-------------------------:|:---------:|:----------:|:-----------:|:----------------:|:-----------:|:---------------:|
-| ID on pathfinder prd page | Item name | Item level | Item rarity | Item price in GP | Item traits | Link to pf2 prd |
+| ID  |   Title   |    Level   |   Rarity    |      Price       |   Traits    |      Link       |
+|:---:|:---------:|:----------:|:-----------:|:----------------:|:-----------:|:---------------:|
+| ID  | Item name | Item level | Item rarity | Item price in GP | Item traits | Link to pf2 prd |
 
 
 This tool uses trademarks and/or copyrights owned by Paizo Inc., used under Paizo's Community Use Policy ([paizo.com/communityuse](https://paizo.com/community/communityuse)). We are expressly prohibited from charging you to use or access this content. This tool is not published, endorsed, or specifically approved by Paizo. For more information about Paizo Inc. and Paizo products, visit paizo.com.
