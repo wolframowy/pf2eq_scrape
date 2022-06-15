@@ -18,7 +18,7 @@ To use this script you need `python-3.x`. Then you need to install
 requirements from req.txt and you are good to go.
 
 ```shell
-pip install req.txt
+pip install -r req.txt
 py pf2eq_scrape.py
 ```
 
