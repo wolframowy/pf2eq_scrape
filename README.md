@@ -14,15 +14,19 @@ This tool uses trademarks and/or copyrights owned by Paizo Inc., used under Paiz
 
 ## Installing / Getting started
 
-To use this script you need `python-3.x`. Then you need to install
+To use this script you need `python-3.x` and downloaded csv from [2e.aonprd.com/Equipment.aspx?All=true](https://2e.aonprd.com/Equipment.aspx?All=true) You can find how to do it in [here](./README.md#how-to-download-input-csv). Then you need to install
 requirements from req.txt and you are good to go.
 
 ```shell
 pip install -r req.txt
-py pf2eq_scrape.py
+py pf2eq_scrape.py [-h] fileName
 ```
 
 Scraped items will be saved into the `input.csv` file located in the script folder.
+
+## How to download input csv
+
+To download input CSV go to [2e.aonprd.com/Equipment.aspx?All=true](https://2e.aonprd.com/Equipment.aspx?All=true) and go to bottom of the page. There change `Page size` to number greater or equal to number of all items (at time of writing it's > 2717) and hit `Change` button. After page reloads click the small page icon with csv written on it on either right bottom or right top of the table.
 
 ## Licensing
 
