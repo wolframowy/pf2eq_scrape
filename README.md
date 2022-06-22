@@ -28,6 +28,8 @@ Scraped items will be saved into the `input.csv` file located in the script fold
 
 To download input CSV go to [2e.aonprd.com/Equipment.aspx?All=true](https://2e.aonprd.com/Equipment.aspx?All=true) and go to bottom of the page. There change `Page size` to number greater or equal to number of all items (at time of writing it's > 2717) and hit `Change` button. After page reloads click the small page icon with csv written on it on either right bottom or right top of the table.
 
+After downloading please check the file for some minor corruptions which can happen. Useful regular expression is `\r\n^[^"]` which will catch all lines separated after item name.
+
 ## Licensing
 
 The code in this project is licensed under GNU GENERAL PUBLIC LICENSE license.
