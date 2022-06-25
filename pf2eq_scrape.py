@@ -1,6 +1,8 @@
 import requests
 import csv
 import time
+import timeit
+from datetime import timedelta
 import re
 import argparse
 
@@ -95,9 +97,10 @@ if __name__ == '__main__':
     parser.add_argument('fileName', metavar='fileName', type=str, help='File location of all exported items from https://2e.aonprd.com/Equipment.aspx?All=true')
     args = parser.parse_args()
     with open(args.fileName, newline='') as csvfile:
-        item_count = sum(1 for line in csvfile)
+        item_count = sum(1 for line in csvfile) - 1
         print(f'Found {item_count} items')
         print(f'Starting scrapping')
+    time_start = timeit.default_timer()
     with open(args.fileName, newline='', encoding='utf-8-sig') as csvfile:
         item_list = csv.DictReader(csvfile, quotechar='"');
         with open('items.csv', 'w', newline='') as f:
@@ -120,12 +123,13 @@ if __name__ == '__main__':
                             else:
                                 curr_id = scrape_other(soup, curr_id)
                             if counter % 10 == 0:
-                                print(f'Scraped {counter} / {item_count} items, items created: {curr_id}')
-                            counter += 1
+                                time_run = timeit.default_timer() - time_start
+                                print(f'T:{timedelta(seconds=time_run)} Scraped {counter} / {item_count} items, items created: {curr_id}')
                             # time sleep to prevent spamming the site
                             time.sleep(1)
                         else:
                             print(f'Item {url} is unavailable!')
+                    counter += 1
             except Exception as ex:
                 print(row['Name'])
                 print(url)
