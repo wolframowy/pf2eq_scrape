@@ -1,3 +1,4 @@
+import json
 import requests
 import csv
 import time
@@ -40,7 +41,7 @@ def search_for_subitem_rarity(title_tag) -> str:
 
 def scrape_equipment(soup: BeautifulSoup, curr_id: int):
     item = soup.find(id='ctl00_RadDrawer1_Content_MainContent_DetailedOutput')
-    traits = [str(x.string) for x in item.find_all(class_='trait')]
+    traits = json.dumps([str(x.string) for x in item.find_all(class_='trait')])
     title_bar = item.find('h1', class_='title')
     lvl = str(title_bar.contents[-1].string).split()[-1]
     prices = [convert_to_gp(str(x.nextSibling)) for x in item.find_all('b', string='Price')]
@@ -79,6 +80,7 @@ def scrape_other(soup: BeautifulSoup, curr_id: int):
         while trait:
             traits.append(str(trait.a.string))
             trait = trait.find_next_sibling('u')
+    traits = json.dumps(traits)
     title_bar = item.find('h1', class_='title')
     lvl_tag = title_bar.find('span', style='float:right')
     lvl = '0'
