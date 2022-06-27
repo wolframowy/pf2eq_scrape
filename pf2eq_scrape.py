@@ -106,7 +106,7 @@ if __name__ == '__main__':
     with open(args.fileName, newline='', encoding='utf-8-sig') as csvfile:
         item_list = csv.DictReader(csvfile, quotechar='"');
         with open('items.csv', 'w', newline='') as f:
-            writer = csv.writer(f, delimiter=';')
+            writer = csv.writer(f, delimiter=';', quotechar="'")
             writer.writerow(['ID', 'Title', 'Lvl', 'Rarity', 'Price', 'Traits', 'URL'])
             checked_urls = set()
             curr_id = 1
