@@ -39,6 +39,15 @@ def search_for_subitem_rarity(title_tag) -> str:
     return 'Common'
 
 
+def search_for_subitem_traits(title_tag) -> str:
+    curr = title_tag.find_next_sibling(class_='trait');
+    traits = [];
+    while curr and curr.get('class') and 'trait' in curr['class']:
+        traits.append(curr.string)
+        curr = curr.next_sibling
+    return json.dumps(traits)
+
+
 def scrape_equipment(soup: BeautifulSoup, curr_id: int):
     item = soup.find(id='ctl00_RadDrawer1_Content_MainContent_DetailedOutput')
     traits = json.dumps([str(x.string) for x in item.find_all(class_='trait')])
@@ -58,6 +67,7 @@ def scrape_equipment(soup: BeautifulSoup, curr_id: int):
             title = str(title_bars[i].contents[-2].string)
             lvl = str(title_bars[i].contents[-1].string).split()[-1]
             rarity = search_for_subitem_rarity(title_bars[i]) if sup_rarity == 'Common' else sup_rarity
+            traits = search_for_subitem_traits(title_bars[i])
             writer.writerow([curr_id, title, lvl, rarity, prices[i], traits, url])
             curr_id += 1
     else:
