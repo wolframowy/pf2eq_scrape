@@ -39,13 +39,14 @@ def search_for_subitem_rarity(title_tag) -> str:
     return 'Common'
 
 
-def search_for_subitem_traits(title_tag) -> str:
+def search_for_subitem_traits(title_tag, main_traits) -> str:
     curr = title_tag.find_next_sibling(class_='trait');
-    traits = [];
+    sub_traits = [];
     while curr and curr.get('class') and 'trait' in curr['class']:
-        traits.append(curr.string)
+        sub_traits.append(curr.string)
         curr = curr.next_sibling
-    return json.dumps(traits)
+    
+    return json.dumps(sub_traits) if len(sub_traits) > 0 else main_traits
 
 
 def scrape_equipment(soup: BeautifulSoup, curr_id: int):
@@ -67,7 +68,7 @@ def scrape_equipment(soup: BeautifulSoup, curr_id: int):
             title = str(title_bars[i].contents[-2].string)
             lvl = str(title_bars[i].contents[-1].string).split()[-1]
             rarity = search_for_subitem_rarity(title_bars[i]) if sup_rarity == 'Common' else sup_rarity
-            traits = search_for_subitem_traits(title_bars[i])
+            traits = search_for_subitem_traits(title_bars[i], traits)
             writer.writerow([curr_id, title, lvl, rarity, prices[i], traits, url])
             curr_id += 1
     else:
@@ -115,7 +116,7 @@ if __name__ == '__main__':
     time_start = timeit.default_timer()
     with open(args.fileName, newline='', encoding='utf-8-sig') as csvfile:
         item_list = csv.DictReader(csvfile, quotechar='"');
-        with open('items.csv', 'w', newline='') as f:
+        with open('items.csv', 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f, delimiter=';', quotechar="'")
             writer.writerow(['ID', 'Title', 'Lvl', 'Rarity', 'Price', 'Traits', 'URL'])
             checked_urls = set()
