@@ -1,3 +1,5 @@
+# DEPRECATED: PLEASE USE THE CURL SCRIPT OR QUERY THE ELASTICSEARCH
+
 # Pathfinder 2e item scrape
 > Tags: Pathfinder 2e pf2 item equipment
 >

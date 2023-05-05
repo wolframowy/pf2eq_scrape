@@ -11,6 +11,7 @@ import argparse
 from bs4 import BeautifulSoup
 
 BASE_URL = 'https://2e.aonprd.com/'
+ITEM_NAME_LIST = 'Equipment.aspx?sort=level-asc%2Cname-asc&display=table'
 ITEM_ATTR = '?ID='
 GP_RATE = {
     'gp': 1.0,
@@ -107,7 +108,7 @@ def scrape_other(soup: BeautifulSoup, curr_id: int):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='PF2E loot scrapper')
-    parser.add_argument('fileName', metavar='fileName', type=str, help='File location of all exported items from https://2e.aonprd.com/Equipment.aspx?All=true')
+    parser.add_argument('fileName', metavar='fileName', type=str, help='File location of all exported items in format "name, link" from https://2e.aonprd.com/Equipment.aspx')
     args = parser.parse_args()
     with open(args.fileName, newline='') as csvfile:
         item_count = sum(1 for line in csvfile) - 1
@@ -115,7 +116,7 @@ if __name__ == '__main__':
         print(f'Starting scrapping')
     time_start = timeit.default_timer()
     with open(args.fileName, newline='', encoding='utf-8-sig') as csvfile:
-        item_list = csv.DictReader(csvfile, quotechar='"');
+        item_list = csv.DictReader(csvfile, quotechar='"', delimiter='\t');
         with open('items.csv', 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f, delimiter=';', quotechar="'")
             writer.writerow(['ID', 'Title', 'Lvl', 'Rarity', 'Price', 'Traits', 'URL'])
@@ -124,10 +125,10 @@ if __name__ == '__main__':
             counter = 1
             try:
                 for row in item_list:
-                    link = BeautifulSoup(row['Name'], 'html5lib').a.attrs['href']
+                    link = row['URL']
                     if link not in checked_urls:
                         checked_urls.add(link)
-                        url = BASE_URL + link
+                        url = link
                         page = requests.get(url)
                         if page.status_code == 200:
                             soup = BeautifulSoup(page.text, 'html5lib')
